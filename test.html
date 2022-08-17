@@ -22,12 +22,33 @@ Please read the <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">WebProject
 Please read the <a href="https://stluc.manta.uqcloud.net/xlex/public/zones-guide.html">WebProject guide Part 2</a> to continue!
 ***
     </pre>
+    <input type="text" id="promptIn" name="type prompt here"><br><br>
+    <button onclick="clickText()" type="button" id="promptBtn">Click to show text</button>
     <p id="promptTxt"></p>
-    <!--<input type="text" id="gprompt" name="prompt"><br><br> -->
-    <button id="promptbtn">prompt</button>
-    
     <script>
-        document.getElementById("promptTxt") = "testing abc";
+      
+
+      function clickText() {
+        document.getElementById("promptTxt").innerHTML = document.getElementById("promptIn").value;
+        const { Configuration, OpenAIApi } = require("openai");
+        const configuration = new Configuration({
+          apiKey: process.env.OPENAI_API_KEY,
+        });
+        const openai = new OpenAIApi(configuration);
+        const response = await openai.createCompletion({
+          model: "text-davinci-002",
+          prompt: "type 20 random words",
+          temperature: 0.7,
+          max_tokens: 256,
+          top_p: 1,
+          frequency_penalty: 0,
+          presence_penalty: 0,
+        });
+      }
+
+
+
+
     </script>
   </body>
 </html>
